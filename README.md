@@ -1,4 +1,4 @@
-# platzy-data-academy
+# platzi-data-academy
 
 Primera version de todos los ejercicios de Platzi python cardio
 

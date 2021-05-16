@@ -32,21 +32,106 @@ def ingrese_numero(titulo='el valor', tipo=int):
 
 
 def cilindro():
-    pass
+    while True:
+        print(Fore.BLUE + 'Elija una opción de como calcular')
+        print(Fore.BLUE + '1. Con radio y altura')
+        print(Fore.BLUE + '2. Con area y altura')
+        opcion = ingrese_numero('la opción')
+
+        if opcion in (1, 2):
+            break
+
+        print(Fore.RED + 'Opción no valida')
+
+    while True:
+        altura = ingrese_numero('la altura')
+
+        if altura > 0:
+            break
+
+        print(Fore.RED + 'La altura es menor o igual a 0')
+
+    if opcion == 1:
+        while True:
+            radio = ingrese_numero('el radio')
+
+            if radio > 0:
+                break
+
+            print(Fore.RED + 'El radio es menor o igual a 0')
+
+        volumen = math.pi * (radio ** 2) * altura
+    elif opcion == 2:
+        while True:
+            area = ingrese_numero('el área')
+
+            if area > 0:
+                break
+
+            print(Fore.RED + 'El área es menor o igual a 0')
+
+        volumen = area * altura
+
+    return volumen
 
 
 def tetraedro():
-    pass
+    while True:
+        arista = ingrese_numero('la arista')
+
+        if arista > 0:
+            break
+
+        print(Fore.RED + 'El valor de la arista es menor o igual a 0')
+
+    volumen = (math.sqrt(2) / 12) * (arista ** 3)
+
+    return volumen
 
 
 def cubo():
-    pass
+    while True:
+        arista = ingrese_numero('la arista')
+
+        if arista > 0:
+            break
+
+        print(Fore.RED + 'El valor de la arista es menor o igual a 0')
+
+    volumen = arista ** 3
+
+    return volumen
 
 
 def ortoedro():
     pass
+    while True:
+        arista_a = ingrese_numero('la arista a')
 
+        if arista_a > 0:
+            break
 
+        print(Fore.RED + 'El valor de la arista es menor o igual a 0')
+
+    while True:
+        arista_b = ingrese_numero('la arista b')
+
+        if arista_b > 0:
+            break
+
+        print(Fore.RED + 'El valor de la arista es menor o igual a 0')
+
+    while True:
+        arista_c = ingrese_numero('la arista c')
+
+        if arista_c > 0:
+            break
+
+        print(Fore.RED + 'El valor de la arista es menor o igual a 0')
+
+    volumen = arista_a * arista_b * arista_c
+
+    return volumen
 
 
 #############################################################################
@@ -79,8 +164,16 @@ def triangulo(tipo_calculo):
     }
 
     if tipo_calculo == 'base_altura':
-        base = ingrese_numero('la base')
-        altura = ingrese_numero('la altura')
+        while True:
+            base = ingrese_numero('la base')
+            altura = ingrese_numero('la altura')
+
+            if base < 1:
+                print(Fore.RED + 'La base es 0 o menor a 0')
+            elif altura < 1:
+                print(Fore.RED + 'La altura es 0 o menor a 0')
+            else:
+                break
 
         area = (base * altura) / 2
         tria_tipo = 4
@@ -205,13 +298,31 @@ def conversor(tipo_conversion):
 
 @cli.command()
 def volumenes():
-    logging.debug('En calculadora de volumenes')
-    print(Fore.BLUE + "Eliga que figura desea calcular")
-    print(Fore.BLUE + "1. Cilindro")
-    print(Fore.BLUE + "2. Tetraedro")
-    print(Fore.BLUE + "3. Cubo")
-    print(Fore.BLUE + "4. Ortoedro")
-    opcion = ingrese_numero('la opcion')
+    opciones_volumenes = {
+        1: cilindro,
+        2: tetraedro,
+        3: cubo,
+        4: ortoedro
+    }
+
+    while True:
+        logging.debug('En calculadora de volumenes')
+        print(Fore.BLUE + "Eliga que figura desea calcular")
+        print(Fore.BLUE + "1. Cilindro")
+        print(Fore.BLUE + "2. Tetraedro")
+        print(Fore.BLUE + "3. Cubo")
+        print(Fore.BLUE + "4. Ortoedro")
+        opcion = ingrese_numero('la opcion')
+
+        if opcion not in range(1, 5):
+            print(Fore.RED + 'Opción erronea, elija entre 1 y 4')
+            continue
+
+        volumen = opciones_volumenes[opcion]()
+        nombre = opciones_volumenes[opcion].__name__
+
+        print(Fore.CYAN + f'El volumen del {nombre} es {volumen}')
+        break
 
 
 @cli.command()

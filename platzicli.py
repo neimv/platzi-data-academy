@@ -179,9 +179,29 @@ def triangulo(tipo_calculo):
         tria_tipo = 4
     elif tipo_calculo == 'lados':
         while True:
-            lado_1 = ingrese_numero('el lado 1')
-            lado_2 = ingrese_numero('el lado 2')
-            lado_3 = ingrese_numero('el lado 3')
+            while True:
+                lado_1 = ingrese_numero('el lado 1')
+
+                if lado_1 > 0:
+                    break
+
+                print(Fore.RED + 'El lado 1 no puede ser menor o igual a 0')
+
+            while True:
+                lado_2 = ingrese_numero('el lado 2')
+
+                if lado_2 > 0:
+                    break
+
+                print(Fore.RED + 'El lado 2 no puede ser menor o igual a 0')
+
+            while True:
+                lado_3 = ingrese_numero('el lado 3')
+
+                if lado_3 > 0:
+                    break
+
+                print(Fore.RED + 'El lado 3 no puede ser menor o igual a 0')
 
             # Validación del triangulo
             es_valido = all([
